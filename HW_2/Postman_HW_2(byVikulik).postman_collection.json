@@ -1,0 +1,330 @@
+{
+	"info": {
+		"_postman_id": "eb7fa5c4-225c-4978-b918-b4272fa7f6f3",
+		"name": "Postman_HW_2(byVikulik)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31379181"
+	},
+	"item": [
+		{
+			"name": "2_/user_info_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var rez = pm.response.json();\r",
+							"\r",
+							"//var req = pm.request.JSON;\r",
+							"var req = request.data;\r",
+							"\r",
+							"function areDeeplyEqual(obj1, obj2) {\r",
+							"  if (obj1 === obj2) return true;\r",
+							"  return false; \r",
+							"}\r",
+							"\r",
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check name', function () {   \r",
+							"    areDeeplyEqual(rez.name,'Juliya');\r",
+							"})\r",
+							"\r",
+							"pm.test('Check age', function () {\r",
+							"    //pm.expect(rez.age).to.eql(22);\r",
+							"     areDeeplyEqual(rez.age,22);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check salary', function () {\r",
+							"    pm.expect(rez.salary).to.eql(1000);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check name -req\",function()\r",
+							"{\r",
+							"    pm.expect(rez.name).to.eql(req.name);\r",
+							"});\r",
+							"\r",
+							"pm.test('Check age -req', function () {\r",
+							"    pm.expect(rez.age).to.eql(req.age);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check salary -req', function () {\r",
+							"    pm.expect(rez.salary).to.eql(Number(req.salary));\r",
+							"})\r",
+							"\r",
+							"pm.test('Check u_salary_1_5_year', function () {\r",
+							"   \r",
+							"   //11. Вывести в консоль параметр family из response.\r",
+							"    console.log(\"параметр family from response =\"+rez.family);\r",
+							"   \r",
+							"    var usal=rez.u_salary_1_5_year;\r",
+							"    Number(usal);\r",
+							"    areDeeplyEqual(usal, 4*rez.salary);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{http}}/user_info_3"
+			},
+			"response": []
+		},
+		{
+			"name": "3_/object_info_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = pm.response.json();\r",
+							"var reqst = request.data;\r",
+							"\r",
+							"function areDeeplyEqual(obj1, obj2) {\r",
+							"  if (obj1 === obj2) return true;\r",
+							"  return false; \r",
+							"}\r",
+							"\r",
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check name\",function()\r",
+							"{\r",
+							"   areDeeplyEqual(resp.name,reqst.name);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check age\",function()\r",
+							"{\r",
+							"   areDeeplyEqual(resp.age,reqst.age);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check salary\",function()\r",
+							"{\r",
+							"   areDeeplyEqual(resp.salary,reqst.salary);\r",
+							"});\r",
+							"\r",
+							"console.log(\"Параметр family = \"+resp.family);\r",
+							"\r",
+							"pm.test(\"The dog parameter has name parameter\", function()\r",
+							"{\r",
+							"   pm.expect(resp.family.pets.dog.hasOwnProperty(\"name\")).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The dog parameter has age parameter\", function()\r",
+							"{\r",
+							"   pm.expect(resp.family.pets.dog.hasOwnProperty(\"age\")).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The name parameter has the value Luky\", function()\r",
+							"{\r",
+							"   pm.expect(resp.family.pets.dog.name).to.eql('Luky');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The age parameter has the value 4\", function()\r",
+							"{\r",
+							"   pm.expect(resp.family.pets.dog.age).to.eql(4);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{http}}/object_info_3?name={{name}}&age={{age}}&salary={{salary}}",
+					"host": [
+						"{{http}}"
+					],
+					"path": [
+						"object_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{name}}"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4_/object_info_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = pm.response.json();\r",
+							"var reqst = request.data;\r",
+							"\r",
+							"function areDeeplyEqual(obj1, obj2) {\r",
+							"  if (obj1 === obj2) return true;\r",
+							"  return false; \r",
+							"}\r",
+							"\r",
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check name\",function()\r",
+							"{\r",
+							"   areDeeplyEqual(resp.name,reqst.name);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check age\",function()\r",
+							"{\r",
+							"   areDeeplyEqual(resp.age,reqst.age);\r",
+							"});\r",
+							"\r",
+							"console.log(\"Salary from request = \"+reqst.salary);\r",
+							"console.log(\"Salary from response = \"+resp.salary);\r",
+							"\r",
+							"var step;\r",
+							"for (step = 0; step < 3; step++) {\r",
+							"    console.log(\"The \"+step+\"-th element of the salary parameter from the response = \"+resp.salary[step]);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"for (step = 0; step < 3; step++) {\r",
+							"    pm.test(\"Check the \"+step+\"th element salary \",function()\r",
+							"{\r",
+							"   areDeeplyEqual(resp.salary[step],reqst.salary*step+1);\r",
+							"});\r",
+							"}\r",
+							"\r",
+							"pm.environment.set('name',resp.name);\r",
+							"pm.environment.set('age',resp.age);\r",
+							"pm.environment.set('salary',resp.salary[0]);\r",
+							"\r",
+							"for (step = 0; step < 3; step++) {\r",
+							"    console.log(resp.salary[step]);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{http}}/object_info_4?name={{name}}&age={{age}}&salary={{salary}}",
+					"host": [
+						"{{http}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{name}}"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1_/first",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"This is the first responce from server!ss\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{http}}/first"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "http",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
